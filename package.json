@@ -29,6 +29,7 @@
   },
   "typings": "dist/types/contentful-typescript-codegen.d.ts",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "fs-extra": "^8.1.0",
     "lodash": "^4.17.15",
     "meow": "^5.0.0"
