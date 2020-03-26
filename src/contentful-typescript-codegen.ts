@@ -2,6 +2,10 @@ import render from "./renderers/render"
 import renderFieldsOnly from "./renderers/renderFieldsOnly"
 import path from "path"
 import { outputFileSync } from "fs-extra"
+import { config } from "dotenv"
+import contentfulClient from "./clients/contentfulClient"
+import contentfulManagementClient from "./clients/contentfulManagementClient"
+config()
 
 const meow = require("meow")
 
@@ -20,7 +24,7 @@ const cli = meow(
                        Contentful responses will be compatible with your code.
 
   Examples
-    $ contentful-typescript-codegen -o src/@types/generated/contentful.d.ts
+    $ contentful-typescript-codegen -o src/types/contentful.d.ts
 `,
   {
     flags: {
@@ -47,10 +51,11 @@ const cli = meow(
   },
 )
 
-async function runCodegen(outputFile: string) {
-  const getEnvironmentPath = path.resolve(process.cwd(), "./getContentfulEnvironment.js")
-  const getEnvironment = require(getEnvironmentPath)
-  const environment = await getEnvironment()
+async function runCodegen(outputFile: string = "src/types/contentful.d.ts") {
+  const client = process.env.CONTENTFUL_MANAGEMENT_ACCESS_TOKEN
+    ? contentfulManagementClient
+    : contentfulClient
+  const environment = await client()
   const contentTypes = await environment.getContentTypes({ limit: 1000 })
   const locales = await environment.getLocales()
   const outputPath = path.resolve(process.cwd(), outputFile)
