@@ -23,33 +23,27 @@ Then, add the following to your `package.json`:
 {
   // ...
   "scripts": {
-    "contentful-typescript-codegen": "contentful-typescript-codegen --output @types/generated/contentful.d.ts"
+    ...
+    "generate:types": "contentful-typescript-codegen --output src/types/contentful.d.ts",
+    ...
   }
 }
 ```
 
 Feel free to change the output path to whatever you like.
 
-Next, the codegen will expect you to have created a file called `getContentfulEnvironment.js` in the
-root of your project directory, and it should export a promise that resolves with your Contentful
-environment.
+Codegen is shipped with a client that needs the following environment variables to query the contentful preview API
+and generate the types
+ - `CONTENTFUL_SPACE_ID`
+ - `CONTENTFUL_ACCESS_TOKEN` content delivery API access token
+ - `CONTENTFUL_MANAGEMENT_ACCESS_TOKEN` personal management access token
+ - `CONTENTFUL_ENVIRONMENT` defaults to `"master"` if not provided
 
-The reason for this is that you can do whatever you like to set up your Contentful Management
-Client. Here's an example:
+ If the `CONTENTFUL_MANAGEMENT_ACCESS_TOKEN` is provided, the [management client][1] would be used which has
+ more capabilities than the [delivery client][2].
 
-```js
-const contentfulManagement = require("contentful-management")
-
-module.exports = function() {
-  const contentfulClient = contentfulManagement.createClient({
-    accessToken: process.env.CONTENTFUL_MANAGEMENT_API_ACCESS_TOKEN,
-  })
-
-  return contentfulClient
-    .getSpace(process.env.CONTENTFUL_SPACE_ID)
-    .then(space => space.getEnvironment(process.env.CONTENTFUL_ENVIRONMENT))
-}
-```
+ The [management client][1] can query validations and add them to the type-checking. But if it's not provided,
+ we will fall back to the [Contentful Delivery/Preview Client][2] that provide less stricter type-checking types.
 
 ### Command line options
 
@@ -105,3 +99,6 @@ You can see that a few things are handled for you:
 - Validations on symbols and text fields are expanded to unions.
 - Non-required attributes automatically have `| null` appended to their type.
 - The output is formatted using **your** Prettier config.
+
+[1]: ./src/clients/contentfulManagementClient.ts
+[2]: ./src/clients/contentfulClient.ts

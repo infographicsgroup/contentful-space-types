@@ -5,7 +5,12 @@ module.exports = {
   testEnvironment: "node",
   testRegex: "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
   moduleFileExtensions: ["ts", "tsx", "js"],
-  coveragePathIgnorePatterns: ["/node_modules/", "/test/", "/src/contentful-typescript-codegen.ts"],
+  coveragePathIgnorePatterns: [
+    "/node_modules/",
+    "/test/",
+    "/src/contentful-typescript-codegen.ts",
+    "/src/clients/",
+  ],
   coverageThreshold: {
     global: {
       branches: 90,

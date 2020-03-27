@@ -36,6 +36,23 @@ describe("renderLink()", () => {
     expect(renderLink(validatedEntryLink)).toMatchInlineSnapshot(`"ILinkToOtherThing"`)
   })
 
+  it("handles DeliveryAPI Entry link response", () => {
+    const deliveryAPILink = {
+      id: "deliveryAPILink",
+      name: "Delivery API Link",
+      type: "Link",
+      localized: false,
+      required: false,
+      disabled: false,
+      omitted: false,
+      linkType: "Entry",
+    }
+
+    expect(renderLink(<Field>deliveryAPILink)).toMatchInlineSnapshot(
+      `"Entry<{ [fieldId: string]: unknown }>"`,
+    )
+  })
+
   it("renders an asset link", () => {
     const assetLink: Field = {
       id: "assetLink",

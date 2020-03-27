@@ -26,6 +26,17 @@ describe("renderSymbol()", () => {
     localized: false,
   }
 
+  const stringWithoutValidations = {
+    type: "Symbol",
+    id: "fieldId",
+    name: "Field Name",
+    omitted: false,
+    required: true,
+    disabled: false,
+    linkType: undefined,
+    localized: false,
+  }
+
   it("works with simple strings", () => {
     expect(renderSymbol(simpleString).trim()).toMatchInlineSnapshot(`"string"`)
   })
@@ -34,5 +45,9 @@ describe("renderSymbol()", () => {
     expect(renderSymbol(stringWithValidations).trim()).toMatchInlineSnapshot(
       `"'one' | 'or' | 'the' | 'other'"`,
     )
+  })
+
+  it("works with strings without validations (DeliveryAPI response)", () => {
+    expect(renderSymbol(<Field>stringWithoutValidations).trim()).toMatchInlineSnapshot(`"string"`)
   })
 })
