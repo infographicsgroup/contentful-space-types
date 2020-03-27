@@ -12,7 +12,7 @@ const meow = require("meow")
 const cli = meow(
   `
   Usage
-    $ contentful-typescript-codegen --output <file> <options>
+    $ contentful-space-types --output <file> <options>
 
   Options
     --output,      -o  Where to write to
@@ -24,7 +24,7 @@ const cli = meow(
                        Contentful responses will be compatible with your code.
 
   Examples
-    $ contentful-typescript-codegen -o src/types/contentful.d.ts
+    $ contentful-space-types -o src/types/contentful.d.ts
 `,
   {
     flags: {

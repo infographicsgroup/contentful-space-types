@@ -1,20 +1,23 @@
-# contentful-typescript-codegen
+# contentful-space-types
 
-Generate typings from your Contentful environment.
+Generate typings from your Contentful space/environment.
 
 - Content Types become interfaces.
 - Locales (and your default locale) become string types.
 - Assets and Rich Text link to Contentful's types.
 
-At Intercom, we use this in our [marketing site] to increase developer confidence and productivity,
-ensure that breaking changes to our Content Types don't cause an outage, and because it's neat.
+Thanks to and based on the awesome work of the people at [Intercom][Intercom]
+> we use this in our [marketing site][Intercom] to increase developer confidence and productivity,
+> ensure that breaking changes to our Content Types don't cause an outage, and because it's neat.
 
-[marketing site]: https://www.intercom.com
+We based our modified version on [their work](https://github.com/intercom/contentful-typescript-codegen)
+with a bit of modification to suite our use case better and to allow robust configuration in different projects
+(with minimal configuration possible, and to work flexibly with both Deliver/Management Contentful APIs).
 
 ## Usage
 
 ```sh
-yarn add --dev contentful-typescript-codegen
+yarn add --dev contentful-space-types
 ```
 
 Then, add the following to your `package.json`:
@@ -24,7 +27,7 @@ Then, add the following to your `package.json`:
   // ...
   "scripts": {
     ...
-    "generate:types": "contentful-typescript-codegen --output src/types/contentful.d.ts",
+    "generate:types": "contentful-space-types --output src/types/contentful.d.ts",
     ...
   }
 }
@@ -102,3 +105,4 @@ You can see that a few things are handled for you:
 
 [1]: ./src/clients/contentfulManagementClient.ts
 [2]: ./src/clients/contentfulClient.ts
+[Intercom]: https://www.intercom.com

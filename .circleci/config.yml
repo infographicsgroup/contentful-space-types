@@ -1,55 +1,64 @@
-version: 2
+# Javascript Node CircleCI 2.0 configuration file
+# Reference https://circleci.com/docs/2.1/language-javascript/
+version: 2.1
 
-defaults: &defaults
-  working_directory: ~/repo
-  docker:
-    - image: circleci/node:10.15.0
+executors:
+  nodejs:
+    docker:
+      - image: circleci/node:12.16
+
+references:
+  save_package_cache: &save_package_cache
+    key: v1-dependencies-{{ checksum "yarn.lock" }}
+    paths:
+      - ./node_modules
+
+  restore_package_cache: &restore_package_cache
+    key: v1-dependencies-{{ checksum "yarn.lock" }}
+
+commands:
+  npm-publish:
+    steps:
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" > .npmrc
+      - run:
+          name: Publish package
+          command: npm publish
 
 jobs:
   test:
-    <<: *defaults
+    executor: nodejs
     steps:
       - checkout
-
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{arch}}-{{ checksum "package.json" }}
-            - v1-dependencies-{{arch}}-
-
-      - run: yarn install
-
-      - save_cache:
-          key: v1-dependencies-{{arch}}-{{ checksum "package.json" }}
-          paths:
-            - node_modules
-
-      - run:
-          name: Check format
-          command: yarn format:check
-
-      - run:
-          name: Run linter
-          command: yarn lint
-
-      - run:
-          name: Run tests
-          command: yarn test:ci
+      - restore_cache: *restore_package_cache
+      - run: yarn install --frozen-lockfile
+      - save_cache: *save_package_cache
+      - run: yarn format:check
+      - run: yarn lint
+      - run: yarn test:ci
 
   release:
-    <<: *defaults
-
+    executor: nodejs
     steps:
       - checkout
-      - run: yarn install
+      - restore_cache: *restore_package_cache
+      - run: yarn install --frozen-lockfile
+      - save_cache: *save_package_cache
       - run: yarn build
-      - run: yarn semantic-release
+      - npm-publish
 
 workflows:
   version: 2
-
-  test:
+  test-build-and-release:
     jobs:
       - test
       - release:
+          context: IGG
           requires:
             - test
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              ignore: /.*/

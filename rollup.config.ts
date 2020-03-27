@@ -6,10 +6,8 @@ import json from "rollup-plugin-json"
 
 const pkg = require("./package.json")
 
-const libraryName = "contentful-typescript-codegen"
-
 export default {
-  input: `src/${libraryName}.ts`,
+  input: "src/contentful-space-types.ts",
   output: [{ file: pkg.main, format: "cjs", sourcemap: true, banner: "#!/usr/bin/env node" }],
   external: ["prettier", "lodash", "path", "fs", "fs-extra", "meow", "dotenv"],
   watch: {
