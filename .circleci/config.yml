@@ -27,7 +27,7 @@ commands:
           command: npm publish
 
 jobs:
-  test:
+  test-and-audit:
     executor: nodejs
     steps:
       - checkout
@@ -37,8 +37,9 @@ jobs:
       - run: yarn format:check
       - run: yarn lint
       - run: yarn test:ci
+      - run: .circleci/yarn-audit.sh
 
-  release:
+  release-and-publish:
     executor: nodejs
     steps:
       - checkout
@@ -50,13 +51,13 @@ jobs:
 
 workflows:
   version: 2
-  test-build-and-release:
+  test-build-audit-and-release:
     jobs:
-      - test
-      - release:
+      - test-and-audit
+      - release-and-publish:
           context: IGG
           requires:
-            - test
+            - test-and-audit
           filters:
             tags:
               only: /.*/
