@@ -8,7 +8,7 @@ module.exports = {
   coveragePathIgnorePatterns: [
     "/node_modules/",
     "/test/",
-    "/src/contentful-typescript-codegen.ts",
+    "/src/contentful-space-types.ts",
     "/src/clients/",
   ],
   coverageThreshold: {
