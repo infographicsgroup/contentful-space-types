@@ -16,7 +16,6 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc --module commonjs && rollup -c rollup.config.ts && chmod +x dist/contentful-typescript-codegen.js",
-    "commit": "git-cz",
     "format": "prettier --write \"**/*.ts\"",
     "format:check": "npm run format -- --check",
     "lint": "tslint --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
@@ -49,7 +48,6 @@
     "contentful-management": "^5.15.0",
     "coveralls": "^3.0.5",
     "cross-env": "^5.2.0",
-    "cz-conventional-changelog": "^3.0.2",
     "husky": "^3.0.2",
     "jest": "^24.8.0",
     "jest-config": "^24.8.0",
@@ -78,11 +76,6 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
-    }
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }
