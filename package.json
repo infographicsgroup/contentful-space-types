@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://github.com/infographicsgroup/contentful-space-types"
   },
-  "version": "0.0.0-development",
+  "version": "0.0.1-development",
   "main": "dist/contentful-space-types.js",
   "bin": "./dist/contentful-space-types.js",
   "files": [
