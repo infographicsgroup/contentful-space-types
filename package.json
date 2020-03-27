@@ -71,7 +71,8 @@
   },
   "keywords": [],
   "engines": {
-    "node": ">=6.0.0"
+    "node": "^12.6.0",
+    "yarn": "^1.16.0"
   },
   "husky": {
     "hooks": {
