@@ -1,6 +1,7 @@
 # Contributing
 
-Thank you for your interest in contributing to an Intercom project.
+Thank you for your interest in contributing to an Sapera project.
+(Based on the [original contributing guide](https://github.com/intercom/contentful-typescript-codegen/blob/v3.0.0/CONTRIBUTING.md))
 
 ## Table of contents
 
@@ -22,8 +23,8 @@ Thank you for your interest in contributing to an Intercom project.
 This project is a Rollup-based TypeScript NodeJS library. To get the source and make changes:
 
 ```bash
-git clone git@github.com:intercom/contentful-typescript-codegen.git
-cd contentful-typescript-codegen
+git clone git@github.com:infographicsgroup/contentful-space-types.git
+cd contentful-space-types
 yarn install
 ```
 
@@ -119,7 +120,7 @@ a project may be further defined and clarified by project maintainers.
 ### Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported by contacting the project team at team-acquisition@intercom.io. All
+reported by contacting the project team at development@i.graphics. All
 complaints will be reviewed and investigated and will result in a response that
 is deemed necessary and appropriate to the circumstances. The project team is
 obligated to maintain confidentiality with regard to the reporter of an incident.
