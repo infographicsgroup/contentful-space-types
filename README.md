@@ -41,6 +41,8 @@ and generate the types
  - `CONTENTFUL_ACCESS_TOKEN` content delivery API access token
  - `CONTENTFUL_MANAGEMENT_ACCESS_TOKEN` personal management access token
  - `CONTENTFUL_ENVIRONMENT` defaults to `"master"` if not provided
+ - `CONTENTFUL_HOST` defaults to `"cdn.contentful.com"` (the delivery API) if not provided, it can work with Preview
+ API if `"preview.contentful.com"` value is used instead
 
  If the `CONTENTFUL_MANAGEMENT_ACCESS_TOKEN` is provided, the [management client][1] would be used which has
  more capabilities than the [delivery client][2].
